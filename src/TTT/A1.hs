@@ -126,4 +126,10 @@ switchPlayer Void = Void
 
 -- Q#12
 
-showSquare = undefined
+-- Implement the showSquare function to return a string value representing the value of type Square
+-- that the function receives as input
+showSquare :: Square -> String
+showSquare squareValue = case squareValue of
+    X -> "X"
+    O -> "O"
+    Void -> "_"
