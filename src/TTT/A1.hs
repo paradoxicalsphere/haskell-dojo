@@ -2,7 +2,7 @@ module TTT.A1 where
 
 import Data.Char (toUpper)
 import GHC.Conc (BlockReason)
-import Control.Concurrent (Chan)
+import Data.Void (Void)
 
 -- Q#01
 
@@ -70,28 +70,59 @@ Define a data type named Square, with X, O and empty as the possible values for 
 having type Square. Allow the REPL to display Square values, and allow comparison between
 values of type Square.
 -}
-data Square = X | O | Nothing
+data Square = X | O | Void
     deriving (Show, Eq)
 
 -- Q#07
 
-data GameState
+{-
+Define a data type named GameState, with XWon, OWon, Tie and InProgress as the possible
+values for variables having the type GameState. Allow the REPL to display GameState values,
+and allow comparison between values of type GameState.
+-}
+data GameState = XWon | OWon | Tie | InProgress
+    deriving (Show, Eq)
 
 -- Q#08
 
+-- Define type synomyms. Brackets ([ and ]) indicate a list.
+type Player = Square
+type Row = [Square]
+type Line = [Square]
+type Board = [Row]
+type Move = (Int, Int)
+
 -- Q#09
 
-getFirstPlayer = undefined
+-- The getFirstPlayer function uses an if...then...else statement to return X if the input value is True
+-- and return O if the input value is False
+getFirstPlayer :: Bool -> Player
+getFirstPlayer booleanValue = if booleanValue then X else O
 
-getFirstPlayer_ = undefined
+-- The getFirstPlayer_ function uses guards to create the same logic as the getFirstPlayer function
+getFirstPlayer_ :: Bool -> Player
+getFirstPlayer_ booleanValue | booleanValue = X
+                             | not booleanValue = O
+                             | otherwise = Void
 
 -- Q#10
 
-showGameState = undefined
+-- The showGameState function receives a GameState value as input, and then returns a string describing
+-- the game state based on the input value.
+showGameState :: GameState -> String
+showGameState gameStateValue = case gameStateValue of
+    XWon -> "X Won!"
+    OWon -> "O Won!"
+    Tie -> "The game has ended in a tie."
+    InProgress -> "The game is still in progress..."
 
 -- Q#11
 
-switchPlayer = undefined
+-- Implement pattern matching to execute a different switchPlayer function based on the input value
+switchPlayer :: Player -> Player
+switchPlayer X = O
+switchPlayer O = X
+switchPlayer Void = Void
 
 -- Q#12
 
