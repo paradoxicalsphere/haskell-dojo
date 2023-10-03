@@ -135,7 +135,7 @@ getFirstPlayer booleanValue = if booleanValue then X else O
 {-
 The getFirstPlayer_ function uses guards to create the same logic as the getFirstPlayer function
 
-NOTE: In guards, case expressions and pattern matching, check are completed sequentially, in
+NOTE: In guards, case expressions and pattern matching, checks are completed sequentially, in
 order from top to bottom, or first to last.
 -}
 getFirstPlayer_ :: Bool -> Player
