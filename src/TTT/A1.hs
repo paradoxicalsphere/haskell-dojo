@@ -4,6 +4,14 @@ import Data.Char (toUpper)
 import GHC.Conc (BlockReason)
 import Data.Void (Void)
 
+-- Module TTT.A1 completed September 28, 2023 to October 3, 2023
+
+-- NOTES
+
+-- To start an instance of the REPL, type cabal repl in the VSCodium Terminal area.
+-- To load the current module, type :l TTT.A1 in the REPL
+-- To reload a module in the REPL, type :r or :reload
+
 -- Q#01
 
 -- The following line is the type signature for the variable named _SIZE_
@@ -23,8 +31,15 @@ _DISPLAY_LOGO_ = True
 
 -- Q#03
 
--- The convertToUpper function returns the character that the user types in upper case
--- To run the convertToUpper function, in the REPL type convertToUpper '<x>' where <x> is a character
+{-
+The convertToUpper function returns the character that the user types in upper case
+
+To run the convertToUpper function, in the REPL type convertToUpper '<x>' where <x> is a character
+
+NOTE: Using single quotes (') indicates a Char type. Using double quotes (") indicates a list
+of characters, also expressed as [Char] The brackets ([ and ]) indicate a list. In Haskell,
+a list of characters is equivalent to a string.
+-}
 convertToUpper :: Char -> Char
 convertToUpper charToConvert = toUpper charToConvert
 
@@ -47,13 +62,23 @@ The convertRowIndex function accepts a character as input. The function:
     3. Subracts 65 from the Unicode value
 
 To run the convertRowIndex function, in the REPL type convertRowIndex '<x>' where <x> is a character
+
+NOTE: In the REPL, you may also use parentheses to calculate and delineate input values
+passed to functions. For example, typing offsetUnicode (25 + 75) returns 35
 -}
 convertRowIndex :: Char -> Int
 convertRowIndex rowIndexValue = offsetUnicode (convertToUnicode (convertToUpper rowIndexValue))
 
 -- Q#04
 
--- Define a tuple to represent an invalid row and column index
+{-
+Define a tuple to represent an invalid row and column index
+
+NOTE: In Haskell, a collection having a pair or trio (triple) of values is expressed as a
+tuple using parentheses ( and ) Each value in a tuple may have a different data type.
+Collections having more than two values are expressed using a list. To delineate list,
+use brackets [ and ] In a list, each element has the same data type.
+-}
 _INVALID_MOVE_ :: (Int, Int)
 _INVALID_MOVE_ = (-1, -1)
 
@@ -69,6 +94,14 @@ _SEP_ = ["_", "|", "_"]
 Define a data type named Square, with X, O and empty as the possible values for variables
 having type Square. Allow the REPL to display Square values, and allow comparison between
 values of type Square.
+
+IMPORTANT: The Unit type is essentially an empty tuple and is written as () The Unit type
+is similar to Void For more detail, see https://stackoverflow.com/questions/16892570/what-is-in-haskell-exactly
+For examples exploring the Unit type, see the module named Sandbox
+
+NOTE: A typeclass defines a set of methods that is shared across multiple types. You may
+define default implementations for all basic typeclasses, for example you can implement
+deriving (Show, Read, Eq, Ord, Bounded, Enum)
 -}
 data Square = X | O | Void
     deriving (Show, Eq)
@@ -99,7 +132,12 @@ type Move = (Int, Int)
 getFirstPlayer :: Bool -> Player
 getFirstPlayer booleanValue = if booleanValue then X else O
 
--- The getFirstPlayer_ function uses guards to create the same logic as the getFirstPlayer function
+{-
+The getFirstPlayer_ function uses guards to create the same logic as the getFirstPlayer function
+
+NOTE: In guards, case expressions and pattern matching, check are completed sequentially, in
+order from top to bottom, or first to last.
+-}
 getFirstPlayer_ :: Bool -> Player
 getFirstPlayer_ booleanValue | booleanValue = X
                              | not booleanValue = O
