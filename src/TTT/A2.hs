@@ -7,11 +7,7 @@ import TTT.A1
 
 -- NOTES
 
-{-
-To avoid the warning -Wmissing-home-modules when using :r or :l TTT.A2 use :m TTT.A2 to load or reload the TTT.A2 module.
-Alternately, use :m + TTT.A2 to load or reload the TTT.A2 module in addition to existing loaded modules. :m is
-equivalent to :module For more details, see https://stackoverflow.com/questions/71172186/cabal-repl-cant-load-module-in-library
--}
+-- When typing :l TTT.A2 or :r ignore the warning -Wmissing-home-modules
 
 -- Q#01
 
@@ -57,15 +53,40 @@ readDigit inputDigit = if isDigit inputDigit then convertStringToInt (convertCha
 
 -- Q#04
 
-_EMPTY_ROW_ = undefined
+-- Initialize a list of three empty variables having type Square representing a row in the Tic Tac Toe board
+_EMPTY_ROW_ :: [Square]
+_EMPTY_ROW_ = replicate 3 Void
 
-_EMPTY_BOARD_ = undefined
+{-
+To represent the Tic Tac Toe board, initialize a list of three variables, each variable being
+a list of type Square containing three empty values
+-}
+_EMPTY_BOARD_ :: [[Square]]
+_EMPTY_BOARD_ = [ _EMPTY_ROW_, _EMPTY_ROW_, _EMPTY_ROW_ ]
 
 -- Q#05
 
-isTied = undefined
+{-
+The isTied fuction tests the state of a Tic Tac Toe board and returns True if the board contains
+no empty squares. If the board contains an empty square, then the function returns False
 
-_TIED_BOARD_ = undefined
+NOTE: Module TTT.A1 defines the Board synomym in Q#08. The concat function concatenates
+a list of lists into a list. The notElem function requires a list as input.
+-}
+isTied :: Board -> Bool
+isTied inputBoard = Void `notElem` concat inputBoard
+
+{-
+Initialize a constant containing a board state used to test the isTied function.
+
+NOTE: You can also use the _EMPTY_BOARD_ constant to test the isTied function.
+-}
+_TIED_BOARD_ :: Board
+_TIED_BOARD_ = [
+    [ X, O, X ],
+    [ O, X, O ],
+    [ O, X, O ]
+  ]
 
 -- Q#06
 
