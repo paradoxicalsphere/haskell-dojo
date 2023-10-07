@@ -85,8 +85,11 @@ _INVALID_MOVE_ = (-1, -1)
 -- Q#05
 
 -- Define a list of separator characters used to display the Tic Tac Toe grid
-_SEP_ :: [[Char]]
-_SEP_ = ["_", "|", "_"]
+--_SEP_ :: [Char]
+--_SEP_ = ['_', '|', '_']
+
+_SEP_ :: String
+_SEP_ = "_|_"
 
 -- Q#06
 

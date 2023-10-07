@@ -90,14 +90,33 @@ _TIED_BOARD_ = [
 
 -- Q#06
 
-indexRowStrings = undefined
+-- Define an unlimited list of characters starting with 'A'
+_UNLIMITED_CHAR_LIST_ :: [Char]
+_UNLIMITED_CHAR_LIST_ = ['A', 'B'.. ]
+
+{-
+The zip function creates a list of tuples, where each tuple contains the elements appearing
+in the same position in the two lists received as input
+
+NOTE: While the number of elements in _UNLIMITED_CHAR_LIST_ is unlimited, the number of elements
+in inputStringList is finite. The indexRowStrings function stops after reaching the end of the
+list that the inputStringList variable contains.
+-}
+indexRowStrings :: [String] -> [(Char, String)]
+indexRowStrings inputStringList = zip _UNLIMITED_CHAR_LIST_ inputStringList
 
 -- Q#07
 
-formatLine = undefined
+{-
+Using a list of strings representing a row in the Tic Tac Toe board as input, separate
+the contents of each square using the separator characters defined in the module TTT.A1
+-}
+formatLine :: [String] -> String
+formatLine rowStringList = _SEP_ ++ intercalate _SEP_ rowStringList ++ _SEP_
 
 -- Q#08
 
+isMoveInBounds :: Move -> Bool
 isMoveInBounds = undefined
 
 -- Q#09
