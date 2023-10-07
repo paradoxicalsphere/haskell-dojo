@@ -2,6 +2,7 @@ module TTT.A2 where
 
 import Data.List (intercalate)
 import TTT.A1
+import Data.Char
 
 -- Completed October 3, 2023 to 
 
@@ -32,9 +33,13 @@ _RANGE_ = [0..(_SIZE_ - 1)]
 
 -- Q#03
 
--- The isDigit function returns True if the character passed into the function is a digit. Otherwise, the function returns False
-isDigit :: Char -> Bool
-isDigit inputDigit = inputDigit `elem` ['0' .. '9']
+{-
+The isDigit function returns True if the character passed into the function is a digit. Otherwise, the function returns False
+
+NOTE: The isDigit function is included in the Data.Char module
+-}
+--isDigit :: Char -> Bool
+--isDigit inputDigit = inputDigit `elem` ['0' .. '9']
 
 -- The convertCharToString function converts a character into a string
 convertCharToString :: Char -> String
@@ -112,17 +117,59 @@ Using a list of strings representing a row in the Tic Tac Toe board as input, se
 the contents of each square using the separator characters defined in the module TTT.A1
 -}
 formatLine :: [String] -> String
-formatLine rowStringList = _SEP_ ++ intercalate _SEP_ rowStringList ++ _SEP_
+formatLine rowStringList = _PRE_SEP_ ++ intercalate _SEP_ rowStringList ++ _POST_SEP_
 
 -- Q#08
 
+-- The isMoveInBounds function returns True if the input tuple represents a valid square on a Tic Tac Toe board
 isMoveInBounds :: Move -> Bool
-isMoveInBounds = undefined
+isMoveInBounds inputMove =
+  (fst inputMove >= 0 && fst inputMove <= 2) &&
+  (snd inputMove >= 0 && snd inputMove <= 2)
 
 -- Q#09
 
-stringToMove = undefined
+{-
+Uncomment the following lines for testing:
+
+stringToMove :: String -> Char
+stringToMove inputString = head inputString
+
+stringToMove :: String -> Int
+stringToMove inputString = convertRowIndex (head inputString)
+
+stringToMove :: String -> Char
+stringToMove inputString = inputString !! 1
+-}
+
+{-
+The stringToMove function accepts a string value using the format <Letter><Digit> to represent a square in the Tic Tac Toe board.
+The function converts the string into a tuple of integer values representing the row and column of the square in the board.
+
+If the format of the input string is not <Letter><Digit> then the function returns the integer -1 for the incorrect value,
+as defined in the TTT.A1.convertRowIndex and TTT.A2.readDigit functions.
+
+If the length of the input string is not 2, then the function returns the tuple (-1,-1) as defined in module TTT.A1
+-}
+stringToMove :: String -> Move
+stringToMove inputString 
+    | length inputString == 2 = (convertRowIndex (head inputString), readDigit (inputString !! 1))
+    | otherwise = _INVALID_MOVE_
 
 -- Q#10
 
-replaceSquareInRow = undefined
+{-
+Uncomment the following lines for testing:
+
+replaceSquareInRow :: Player -> Int -> Row -> Player
+replaceSquareInRow inputPlayerValue inputColumnIndex inputRow = inputPlayerValue
+
+replaceSquareInRow :: Player -> Int -> Row -> Int
+replaceSquareInRow inputPlayerValue inputColumnIndex inputRow = inputColumnIndex
+
+replaceSquareInRow :: Player -> Int -> Row -> Row
+replaceSquareInRow inputPlayerValue inputColumnIndex inputRow = inputRow
+-}
+
+replaceSquareInRow :: Player -> Int -> Row -> Row
+replaceSquareInRow inputPlayerValue inputColumnIndex inputRow = undefined

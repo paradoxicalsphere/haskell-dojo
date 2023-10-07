@@ -1,7 +1,6 @@
 module TTT.A1 where
 
-import Data.Char (toUpper)
-import GHC.Conc (BlockReason)
+import Data.Char (toUpper, isDigit)
 import Data.Void (Void)
 
 -- Module TTT.A1 completed September 28, 2023 to October 3, 2023
@@ -56,10 +55,12 @@ offsetUnicode numberToOffset = numberToOffset - 65
 -- To create a multiline comment, surround text using {- and -}
 
 {-
-The convertRowIndex function accepts a character as input. The function:
+The convertRowIndex function accepts a character as input. If the character is a letter, then the function:
     1. Converts the character to upper case
     2. Converts the upper case character to the respective Unicode value
-    3. Subracts 65 from the Unicode value
+    3. Subtracts 65 from the Unicode value
+
+If the character is a digit, then the function returns the integer -1
 
 To run the convertRowIndex function, in the REPL type convertRowIndex '<x>' where <x> is a character
 
@@ -67,7 +68,8 @@ NOTE: In the REPL, you may also use parentheses to calculate and delineate input
 passed to functions. For example, typing offsetUnicode (25 + 75) returns 35
 -}
 convertRowIndex :: Char -> Int
-convertRowIndex rowIndexValue = offsetUnicode (convertToUnicode (convertToUpper rowIndexValue))
+--convertRowIndex rowIndexValue = offsetUnicode (convertToUnicode (convertToUpper rowIndexValue))
+convertRowIndex rowIndexValue = if not (isDigit rowIndexValue) then offsetUnicode (convertToUnicode (convertToUpper rowIndexValue)) else (-1)
 
 -- Q#04
 
@@ -88,8 +90,14 @@ _INVALID_MOVE_ = (-1, -1)
 --_SEP_ :: [Char]
 --_SEP_ = ['_', '|', '_']
 
+_PRE_SEP_ :: String
+_PRE_SEP_ = "|_"
+
 _SEP_ :: String
 _SEP_ = "_|_"
+
+_POST_SEP_ :: String
+_POST_SEP_ = "_|"
 
 -- Q#06
 
