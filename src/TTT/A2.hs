@@ -207,7 +207,8 @@ replaceSquareInRow inputPlayerValue inputColumnIndex inputRow
       afterChangedColumn = tail (drop inputColumnIndex inputRow)
 
 {-
-The rsX and rsO functions partially apply the replaceSquareInRow function. To call the functions, type:
+The rsX and rsO functions partially apply the replaceSquareInRow function. To call the functions
+using the REPL, type the following commands:
 
 rsX <ColumnIndex> <Row>
 
