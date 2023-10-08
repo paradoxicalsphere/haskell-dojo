@@ -169,7 +169,53 @@ replaceSquareInRow inputPlayerValue inputColumnIndex inputRow = inputColumnIndex
 
 replaceSquareInRow :: Player -> Int -> Row -> Row
 replaceSquareInRow inputPlayerValue inputColumnIndex inputRow = inputRow
+
+replaceSquareInRow :: Player -> Int -> Row -> ([Square], [Square])
+replaceSquareInRow inputPlayerValue inputColumnIndex inputRow = splitAt inputColumnIndex inputRow
+
+replaceSquareInRow :: Player -> Int -> Row -> [Square]
+replaceSquareInRow inputPlayerValue inputColumnIndex inputRow = drop inputColumnIndex inputRow
 -}
 
+{-
+The replaceSquareInRow function accepts the following input:
+
+- A value of type Square indicating the symbol for the player currently taking a turn
+- A column in the Tic Tac Toe board represented using an Integer
+- A row in the Tic Tac Toe board represented using a list containing values of type Square
+
+The function returns a row represented using a list of type Square in which the symbol for
+the player currently taking a turn replaces the value at the specified column in the row
+passed into the function.
+
+If the column value passed into the function is out of range, then the function returns
+the input row unchanged.
+
+IMPORTANT: Passing an empty row into the replaceSquareInRow function generates an error.
+-}
 replaceSquareInRow :: Player -> Int -> Row -> Row
-replaceSquareInRow inputPlayerValue inputColumnIndex inputRow = undefined
+replaceSquareInRow inputPlayerValue inputColumnIndex inputRow
+    | inputColumnIndex == 0 = [inputPlayerValue] ++ beforeChangedColumn ++ afterChangedColumn
+    | inputColumnIndex == 1 = beforeChangedColumn ++ [inputPlayerValue] ++ afterChangedColumn
+    | inputColumnIndex == 2 = beforeChangedColumn ++ afterChangedColumn ++ [inputPlayerValue]
+    | otherwise = inputRow
+    where
+      beforeChangedColumn = take inputColumnIndex inputRow
+      afterChangedColumn = tail (drop inputColumnIndex inputRow)
+
+{-
+The rsX and rsO funtions partially apply the replaceSquareInRow function.
+
+If the row passed into the rsX or rsO functions is empty, then the functions return an
+empty list without calling the replaceSquareInRow function.
+-}
+rsX :: Int -> Row -> Row
+rsX inputColumn inputRow
+  | null inputRow = []
+  | otherwise = replaceSquareInRow X inputColumn inputRow
+
+rsO :: Int -> Row -> Row
+rsO inputColumn inputRow
+  | null inputRow = []
+  | otherwise = replaceSquareInRow O inputColumn inputRow
+
