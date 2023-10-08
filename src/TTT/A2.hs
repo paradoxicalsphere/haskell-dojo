@@ -204,7 +204,7 @@ replaceSquareInRow inputPlayerValue inputColumnIndex inputRow
       afterChangedColumn = tail (drop inputColumnIndex inputRow)
 
 {-
-The rsX and rsO funtions partially apply the replaceSquareInRow function.
+The rsX and rsO functions partially apply the replaceSquareInRow function.
 
 If the row passed into the rsX or rsO functions is empty, then the functions return an
 empty list without calling the replaceSquareInRow function.
