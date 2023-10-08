@@ -152,7 +152,7 @@ as defined in the TTT.A1.convertRowIndex and TTT.A2.readDigit functions.
 If the length of the input string is not 2, then the function returns the tuple (-1,-1) as defined in module TTT.A1
 -}
 stringToMove :: String -> Move
-stringToMove inputString 
+stringToMove inputString
     | length inputString == 2 = (convertRowIndex (head inputString), readDigit (inputString !! 1))
     | otherwise = _INVALID_MOVE_
 
@@ -198,9 +198,9 @@ function creates an error condition in the tail function.
 replaceSquareInRow :: Player -> Int -> Row -> Row
 replaceSquareInRow inputPlayerValue inputColumnIndex inputRow
     | null inputRow = inputRow
-    | inputColumnIndex == 0 = [inputPlayerValue] ++ beforeChangedColumn ++ afterChangedColumn
+    | inputColumnIndex == 0 = inputPlayerValue : afterChangedColumn
     | inputColumnIndex == 1 = beforeChangedColumn ++ [inputPlayerValue] ++ afterChangedColumn
-    | inputColumnIndex == 2 = beforeChangedColumn ++ afterChangedColumn ++ [inputPlayerValue]
+    | inputColumnIndex == 2 = beforeChangedColumn ++ [inputPlayerValue]
     | otherwise = inputRow
     where
       beforeChangedColumn = take inputColumnIndex inputRow
