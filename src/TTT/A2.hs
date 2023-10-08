@@ -191,10 +191,13 @@ passed into the function.
 If the column value passed into the function is out of range, then the function returns
 the input row unchanged.
 
-IMPORTANT: Passing an empty row into the replaceSquareInRow function generates an error.
+NOTE: Guards are parsed in the order listed from top to bottom. If the null inputRow guard
+appears lower in the list of guards, then passing an empty row into the replaceSquareInRow
+function creates an error condition in the tail function.
 -}
 replaceSquareInRow :: Player -> Int -> Row -> Row
 replaceSquareInRow inputPlayerValue inputColumnIndex inputRow
+    | null inputRow = inputRow
     | inputColumnIndex == 0 = [inputPlayerValue] ++ beforeChangedColumn ++ afterChangedColumn
     | inputColumnIndex == 1 = beforeChangedColumn ++ [inputPlayerValue] ++ afterChangedColumn
     | inputColumnIndex == 2 = beforeChangedColumn ++ afterChangedColumn ++ [inputPlayerValue]
@@ -204,18 +207,14 @@ replaceSquareInRow inputPlayerValue inputColumnIndex inputRow
       afterChangedColumn = tail (drop inputColumnIndex inputRow)
 
 {-
-The rsX and rsO functions partially apply the replaceSquareInRow function.
+The rsX and rsO functions partially apply the replaceSquareInRow function. To call the functions, type:
 
-If the row passed into the rsX or rsO functions is empty, then the functions return an
-empty list without calling the replaceSquareInRow function.
+rsX <ColumnIndex> <Row>
+
+OR
+
+rsO <ColumnIndex> <Row>
 -}
-rsX :: Int -> Row -> Row
-rsX inputColumn inputRow
-  | null inputRow = []
-  | otherwise = replaceSquareInRow X inputColumn inputRow
-
-rsO :: Int -> Row -> Row
-rsO inputColumn inputRow
-  | null inputRow = []
-  | otherwise = replaceSquareInRow O inputColumn inputRow
+rsX = replaceSquareInRow X
+rsO = replaceSquareInRow O
 
