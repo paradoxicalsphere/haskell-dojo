@@ -150,11 +150,23 @@ If the format of the input string is not <Letter><Digit> then the function retur
 as defined in the TTT.A1.convertRowIndex and TTT.A2.readDigit functions.
 
 If the length of the input string is not 2, then the function returns the tuple (-1,-1) as defined in module TTT.A1
+
+NOTE: Remember that in Haskell, a string is equivalent to a list of characters. In the stringToMove function, the where clause
+deconstructs the value of inputString into head and tail components using the cons (:) constructor, assigning the head to the
+variable x and the tail to the variable xs The head function returns the first character of an input string as type Char. The
+tail function always returns the input string without the head character as type String, even when the tail is only one character
+in length. To convert a one-character tail to the type Char, call the head function using the tail as input. Indexing a list--
+for example, using <inputList> !! n to return the nth item in a list--is inefficient, even though indexing a string returns a
+value of type Char as may be required.
 -}
 stringToMove :: String -> Move
 stringToMove inputString
-    | length inputString == 2 = (convertRowIndex (head inputString), readDigit (inputString !! 1))
+    | length inputString == 2 = (convertRowIndex x, readDigit (head xs))
     | otherwise = _INVALID_MOVE_
+    where
+      (x:xs) = inputString
+
+-- | length inputString == 2 = (convertRowIndex (head inputString), readDigit (inputString !! 1))
 
 -- Q#10
 
