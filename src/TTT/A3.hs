@@ -3,7 +3,6 @@ module TTT.A3 where
 import Data.List (transpose)
 import TTT.A1
 import TTT.A2
-import Text.Read (Lexeme(String))
 
 {-
 NOTES
