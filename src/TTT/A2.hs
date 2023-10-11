@@ -59,14 +59,14 @@ readDigit inputDigit = if isDigit inputDigit then convertStringToInt (convertCha
 -- Q#04
 
 -- Initialize a list of three empty variables having type Square representing a row in the Tic Tac Toe board
-_EMPTY_ROW_ :: [Square]
+_EMPTY_ROW_ :: Row
 _EMPTY_ROW_ = replicate 3 Void
 
 {-
 To represent the Tic Tac Toe board, initialize a list of three variables, each variable being
 a list of type Square containing three empty values
 -}
-_EMPTY_BOARD_ :: [[Square]]
+_EMPTY_BOARD_ :: Board
 _EMPTY_BOARD_ = [ _EMPTY_ROW_, _EMPTY_ROW_, _EMPTY_ROW_ ]
 
 -- Q#05
