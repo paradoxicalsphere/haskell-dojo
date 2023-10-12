@@ -60,7 +60,29 @@ formatRows xs = go [] xs
 
 -- Q#04
 
-isColEmpty = undefined
+{-
+The following function also works:
+
+isColEmpty :: Row -> Int -> Bool
+isColEmpty (x:xs) inputColumn = if inputColumn == 0 then (if x == Void then True else False) else isColEmpty xs (inputColumn - 1)
+isColEmpty [] _ = False
+-}
+
+{-
+The isColEmpty function accepts a list of type Square and an integer as input. If the index in the list represented using the integer
+contains the value Void, then the function returns the Boolean value True. Otherwise, the function returns the value False
+
+The function recursively drops the head of the input list containing values of type Square until the column represented by the input
+integer is at the head of the list. Then, the function tests the value of the head and returns the appropriate Boolean value based on
+the comparison.
+
+NOTE: The order of patterns is important. Patterns are parsed in order from top to bottom. Therefore, patterns are listed from specific
+to general.
+-}
+isColEmpty :: Row -> Int -> Bool
+isColEmpty (x:xs) 0 = if x == Void then True else False
+isColEmpty (x:xs) inputColumn = isColEmpty xs (inputColumn - 1)
+isColEmpty [] _ = False
 
 -- Q#05
 
