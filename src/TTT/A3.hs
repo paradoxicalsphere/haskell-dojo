@@ -86,9 +86,29 @@ isColEmpty [] _ = False
 
 -- Q#05
 
-dropFirstCol = undefined
+{-
+The dropFirstCol function recursively scans the input variable having type Board one Row at a time, dropping the first item in each list
+having type Row
+-}
+dropFirstCol :: Board -> Board
+dropFirstCol xs = go [] xs
+    where
+        go :: Board -> Board -> Board
+        go acc (y:ys) = go (acc ++ [tail y]) ys
+        go acc [] = acc
 
-dropLastCol = undefined
+{-
+The dropLastCol function recursively scans the input variable having type Board one Row at a time, dropping the last item in each list
+having type Row
+
+NOTE: For more details on the init function, see http://zvon.org/other/haskell/Outputprelude/init_f.html
+-}
+dropLastCol :: Board -> Board
+dropLastCol xs = go [] xs
+    where
+        go :: Board -> Board -> Board
+        go acc (y:ys) = go (acc ++ [init y]) ys
+        go acc [] = acc
 
 -- Q#06
 
