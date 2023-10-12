@@ -112,11 +112,50 @@ dropLastCol xs = go [] xs
 
 -- Q#06
 
-getDiag1 = undefined
+--NOTE: To test the getDiag1, getDiag2 and getAllLines functions, use the Board value [[X, O, Void], [X, O, X], [O, X, Void]]
 
-getDiag2 = undefined
+{-
+The getDiag1 function returns the values in a Tic Tac Toe board representing the diagonal line running from the top left corner
+to the bottom right corner as a value having type Line, which is defined as a list of Square values.
+-}
+getDiag1 :: Board -> Line
+getDiag1 xs = go [] xs
+    where
+        go :: Line -> Board -> Line
+        go acc (y:ys) = go (acc ++ [head y]) (dropFirstCol ys)
+        go acc [] = acc
 
-getAllLines = undefined
+{-
+The getDiag2 function returns the values in a Tic Tac Toe board representing the diagonal line running from the top right corner
+to the bottom left corner as a value having type Line
+
+NOTE: For more details on the last function, see http://zvon.org/other/haskell/Outputprelude/last_f.html
+-}
+getDiag2 :: Board -> Line
+getDiag2 xs = go [] xs
+    where
+        go :: Line -> Board -> Line
+        go acc (y:ys) = go (acc ++ [last y]) (dropLastCol ys)
+        go acc [] = acc
+
+{-
+The getAllLines function accepts a value of type Board as input, and then returns all the lines in the Board as a list.
+
+NOTE: A Player wins the game when any line in the Board contains all X or all O values.
+-}
+getAllLines :: Board -> [Line]
+getAllLines (x:xs) = [
+    -- Export all rows in the Tic Tac Toe board from top to bottom
+    x, head xs, last xs,
+    -- Export all columns in the Tic Tac Toe board from left to right
+    [ head x, head (head xs), head (last xs) ],
+    [ head (tail x), head (tail (head xs)), head (tail (last xs)) ],
+    [ last x, last (head xs), last (last xs) ],
+    -- Export all diagonal lines in the Tic Tac Toe board
+    getDiag1 (x:xs), getDiag2 (x:xs)
+  ]
+-- If the input Board is an empty list, then return an empty list
+getAllLines [] = []
 
 -- Q#07
 
