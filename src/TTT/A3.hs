@@ -183,7 +183,16 @@ putSquare inputPlayer inputBoard inputMove = go [] inputPlayer inputBoard inputM
 
 -- Q#08
 
-prependRowIndices = undefined
+{-
+The recursive prependRowIndices function labels each row in a Tic Tac Toe board with the letter that players use to specify the row
+when making a move.
+-}
+prependRowIndices :: [String] -> [String]
+prependRowIndices inputStringList = go [] (indexRowStrings inputStringList)
+    where
+        go :: [String] -> [(Char, String)] -> [String]
+        go acc (y:ys) = go (acc ++ [concat [[fst y], ". ", snd y]]) ys
+        go acc [] = acc
 
 -- Q#09
 
