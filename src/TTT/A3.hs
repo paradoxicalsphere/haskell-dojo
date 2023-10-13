@@ -3,6 +3,7 @@ module TTT.A3 where
 import Data.List (transpose)
 import TTT.A1
 import TTT.A2
+import Foreign (toBool)
 
 {-
 NOTES
@@ -196,7 +197,26 @@ prependRowIndices inputStringList = go [] (indexRowStrings inputStringList)
 
 -- Q#09
 
-isWinningLine_ = undefined
+{-
+The isWinningLine function accepts as input a variable of type Player as well as a Line. If all values in the Line
+match the value of the Player variable, then the function returns True. If any value in the Line does not match the
+value of the Player variable, then the function returns false.
+
+IMPORTANT: When the worker go function returns True, the function recursively continues testing then next value in
+the input Line variable. If the worker go function returns False, then the function stops testing further values
+in the Line variable and returns the False value. If the function would continue testing Line values after identifying
+a value that does not match the Player value, then the function would incorrectly return True when testing the line
+[O, X, O] to determine if Player O won, for example.
+
+NOTE: The inputPlayer variable passed to the isWinningLine function is within the scope of the worker go function.
+Therefore, explicitly passing the inputPlayer variable to the worker go function is not necessary.
+-}
+isWinningLine :: Player -> Line -> Bool
+isWinningLine inputPlayer inputLine = go False inputLine
+    where
+        go :: Bool -> Line -> Bool
+        go acc (y:ys) = if inputPlayer == y then go True ys else False
+        go acc [] = acc
 
 -- Q#10
 
