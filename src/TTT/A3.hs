@@ -159,7 +159,27 @@ getAllLines [] = []
 
 -- Q#07
 
-putSquare = undefined
+{-
+The putSquare function receives the following values as input:
+
+- A Player value (X or O)
+- A Tic Tac Toe board representing the current state of a game
+- A tuple representing a square in the board using the format (<Row>, <Column>) having values in the range 0..2
+
+The function returns the input board with the value in the square having the location indicated using the input tuple
+with the input player value.
+
+NOTE: Previous recursion examples in Q#01 through Q#06 implement either base and recursive patterns, or wrapper-worker
+functions. In the putSquare function, the worker go function implements base and recursive patterns.
+-}
+putSquare :: Player -> Board -> Move -> Board
+--The top level putSquare function servers as a wrapper that calls the worker go function
+putSquare inputPlayer inputBoard inputMove = go [] inputPlayer inputBoard inputMove
+    where
+        go :: Board -> Player -> Board -> Move -> Board
+        go acc inputPlayer (y:ys) (0 , inputMoveColumn) = acc ++ [replaceSquareInRow inputPlayer inputMoveColumn y] ++ ys
+        go acc inputPlayer (y:ys) (inputMoveRow, inputMoveColumn) = go (acc ++ [y]) inputPlayer ys (inputMoveRow - 1, inputMoveColumn)
+        go acc _ [] _ = []
 
 -- Q#08
 
