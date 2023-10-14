@@ -124,8 +124,8 @@ formatLine rowStringList = _PRE_SEP_ ++ intercalate _SEP_ rowStringList ++ _POST
 -- The isMoveInBounds function returns True if the input tuple represents a valid square on a Tic Tac Toe board
 isMoveInBounds :: Move -> Bool
 isMoveInBounds inputMove =
-  (fst inputMove >= 0 && fst inputMove <= 2) &&
-  (snd inputMove >= 0 && snd inputMove <= 2)
+  (fst inputMove >= 0 && fst inputMove < _SIZE_) &&
+  (snd inputMove >= 0 && snd inputMove < _SIZE_)
 
 -- Q#09
 

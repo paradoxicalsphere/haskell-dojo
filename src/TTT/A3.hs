@@ -220,4 +220,24 @@ isWinningLine inputPlayer inputLine = go False inputLine
 
 -- Q#10
 
-isValidMove = undefined
+{-
+The isValidMove function receives a Board value and a Move value as input. In the Tic Tac Toe board received as input,
+if the square indicated using the input Move value is empty, then the function returns True. If the indicated square
+contains the value X or O, then the function returns False
+
+If the input Board value is an empty list, or if the input Move value does not represent a valid square in a Tic Tac Toe
+board, then the isValidMove function returns False
+
+NOTE: To test the isValidMove function, use the board [[X,O,Void], [Void,Void,X], [Void,O,Void]] for example.
+-}
+isValidMove :: Board -> Move -> Bool
+isValidMove inputBoard inputMove
+    -- Use guards to ensure that the input Move value represents a valid square in a Tic Tac Toe board. The isMoveInBounds
+    -- function serves as a wrapper function, calling the recursive worker go function.
+    | isMoveInBounds inputMove = go inputBoard inputMove
+    | otherwise = False
+    where
+        go :: Board -> Move -> Bool
+        go (y:_) (0, goMoveColumn) = isColEmpty y goMoveColumn
+        go (_:ys) (goMoveRow, goMoveColumn) = go ys (goMoveRow - 1, goMoveColumn)
+        go [] _ = False
