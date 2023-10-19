@@ -1,16 +1,13 @@
 module TTT.A3 where
 
-import Data.List (transpose)
 import TTT.A1
 import TTT.A2
-import Foreign (toBool)
 
 {-
 NOTES
 
 - In VSCodium, to identify where a function or constant is defined, hover over the function call or reference
 using your mouse.
-
 
 -}
 
@@ -19,8 +16,8 @@ using your mouse.
 {-
 The showInts function converts a list of integer values to a list of string values using recursion. The
 recursive function named go appends the string version of the next item in the input list to an accumulator
-list variable of type String named acc When all items in the input list of type Integer of are converted
-to string values, then the function returns the list of items stored in the acc variable and stops.
+list variable of type String named acc When all items in the input list of type Integer are converted to
+string values, then the function returns the list of items stored in the acc variable and stops.
 -}
 showInts :: [Int] -> [String]
 showInts xs = go [] xs
@@ -29,9 +26,27 @@ showInts xs = go [] xs
         go acc (y:ys) = go (acc ++ [show y]) ys
         go acc [] = acc
 
+{-
 -- The _HEADER_ constant displays a string used to label the columns in the Tic Tac Toe board
 _HEADER_ :: String
 _HEADER_ = " " ++ formatLine (showInts _RANGE_)
+-}
+
+-- Rewrite the above _HEADER_ function using map
+formatLineMap :: String -> String
+formatLineMap inputString = _SEP_ ++ inputString
+
+{-
+The rewritten _HEADER_ function:
+
+    1. Converts the Integers in the _RANGE_ list to a list of String values.
+    2. Using the formatLineMap and built-in map functions, prepends the _SEP_ String value to each item in the list that step 1 returns.
+    3. Appends a list item containing the _SEP_ String value to the list that step 2 returns.
+    4. Using the built-in concat function, converts the list of String values that step 3 returns into a single String value.
+
+-}
+_HEADER_ :: String
+_HEADER_ = concat $ map formatLineMap (showInts _RANGE_) ++ [_SEP_]
 
 -- Q#02
 
