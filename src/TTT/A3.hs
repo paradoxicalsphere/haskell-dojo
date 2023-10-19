@@ -26,18 +26,17 @@ showInts xs = go [] xs
         go acc (y:ys) = go (acc ++ [show y]) ys
         go acc [] = acc
 
-{-
 -- The _HEADER_ constant displays a string used to label the columns in the Tic Tac Toe board
+{-
 _HEADER_ :: String
 _HEADER_ = " " ++ formatLine (showInts _RANGE_)
 -}
 
--- Rewrite the above _HEADER_ function using map
 formatLineMap :: String -> String
 formatLineMap inputString = _SEP_ ++ inputString
 
 {-
-The rewritten _HEADER_ function:
+Redefine the _HEADER_ constant using map. The redefined _HEADER_ constant:
 
     1. Converts the Integers in the _RANGE_ list to a list of String values.
     2. Using the formatLineMap and built-in map functions, prepends the _SEP_ String value to each item in the list that step 1 returns.
@@ -54,12 +53,18 @@ _HEADER_ = concat $ map formatLineMap (showInts _RANGE_) ++ [_SEP_]
 The showSquares function converts a list of items having type Square to a list of string values. The function
 uses the same logic as the showInts function above to complete the conversion using recursion.
 -}
+{-
 showSquares :: [Square] -> [String]
 showSquares xs = go [] xs
     where
         go :: [String] -> [Square] -> [String]
         go acc (y:ys) = go (acc ++ [showSquare y]) ys
         go acc [] = acc
+-}
+
+-- Rewrite the showSquares function using map
+showSquares :: [Square] -> [String]
+showSquares inputSquareList = map showSquare inputSquareList
 
 -- Q#03
 
