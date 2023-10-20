@@ -26,26 +26,15 @@ showInts xs = go [] xs
         go acc (y:ys) = go (acc ++ [show y]) ys
         go acc [] = acc
 
--- The _HEADER_ constant displays a string used to label the columns in the Tic Tac Toe board
+{-
+The _HEADER_ constant displays a string used to label the columns in the Tic Tac Toe board
+
+NOTE: The _HEADER_ constant is redefined using map in the module TTT.A4 Q#01
+-}
 {-
 _HEADER_ :: String
 _HEADER_ = " " ++ formatLine (showInts _RANGE_)
 -}
-
-formatLineMap :: String -> String
-formatLineMap inputString = _SEP_ ++ inputString
-
-{-
-Redefine the _HEADER_ constant using map. The redefined _HEADER_ constant:
-
-    1. Converts the Integers in the _RANGE_ list to a list of String values.
-    2. Using the formatLineMap and built-in map functions, prepends the _SEP_ String value to each item in the list that step 1 returns.
-    3. Appends a list item containing the _SEP_ String value to the list that step 2 returns.
-    4. Using the built-in concat function, converts the list of String values that step 3 returns into a single String value.
-
--}
-_HEADER_ :: String
-_HEADER_ = concat $ map formatLineMap (showInts _RANGE_) ++ [_SEP_]
 
 -- Q#02
 
@@ -79,6 +68,9 @@ formatRows xs = go [] xs
         go acc (y:ys) = go (acc ++ [formatLine (showSquares y)]) ys
         go acc [] = acc
 
+-- Rewrite the formatRows function using map
+
+
 -- Q#04
 
 {-
@@ -111,12 +103,22 @@ isColEmpty [] _ = False
 The dropFirstCol function recursively scans the input variable having type Board one Row at a time, dropping the first item in each list
 having type Row
 -}
+{-
 dropFirstCol :: Board -> Board
 dropFirstCol xs = go [] xs
     where
         go :: Board -> Board -> Board
         go acc (y:ys) = go (acc ++ [tail y]) ys
         go acc [] = acc
+-}
+
+{-
+Rewrite the dropFirstCol function to use the built-in map function.
+
+NOTE: The map function implements and anonymous function, also called a lamda function.
+-}
+dropFirstCol :: Board -> Board
+dropFirstCol inputBoard = map (\(x:xs) -> xs) inputBoard
 
 {-
 The dropLastCol function recursively scans the input variable having type Board one Row at a time, dropping the last item in each list
@@ -124,12 +126,18 @@ having type Row
 
 NOTE: For more details on the init function, see http://zvon.org/other/haskell/Outputprelude/init_f.html
 -}
+{-
 dropLastCol :: Board -> Board
 dropLastCol xs = go [] xs
     where
         go :: Board -> Board -> Board
         go acc (y:ys) = go (acc ++ [init y]) ys
         go acc [] = acc
+-}
+
+-- Rewrite the dropLastCol function using map and a lambda function
+dropLastCol :: Board -> Board
+dropLastCol inputBoard = map (\(x:xs) -> [x, head xs]) inputBoard
 
 -- Q#06
 
