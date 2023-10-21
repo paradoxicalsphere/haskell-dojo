@@ -12,6 +12,8 @@ NOTES
 TTT.A4 rewrites some functions implemented in TTT.A3 To resolve dependency issues,
 I moved some rewritten functions to TTT.A3 replacing the original implementations.
 
+- If typing :l TTT.A4 for example does not work, then type :r
+
 -}
 
 -- Q#01
@@ -91,14 +93,55 @@ isWinningLine__ inputPlayer__ inputLine__ = foldr (\x y -> if (x /= inputPlayer_
 
 -- Q#08
 
+--Use the following constant definitions to test the hasWon function
+_X_WIN_ = [ [X, O, O]
+          , [O, X, O]
+          , [O, O, X]
+          ]
+
+_O_WIN_ = [ [O, X, O]
+          , [X, X, O]
+          , [X, O, O]
+          ]
+
+{-
+The hasWon function receives a Player value and a Board value as input. The function evaluates all lines in a Tic Tac Toe board
+and returns True if any line contains only values matching the in put Player value. Otherwise, the function returns False
+
+The foldr function receives as input a list of Line values representing all lines in the Tic Tac Toe board. Each line value is
+comprised of a list of Square values. The isWinningLine_ function received a Player value and Line value as input, returning
+True if each Square value in the Line matches the input Player value. The lambda function tests each line in the Tic Tac Toe
+board, returning True if any line is a winning line.
+-}
 hasWon :: Player -> Board -> Bool
-hasWon = undefined
+hasWon inputPlayer inputBoard = foldr (\x y -> if not y then isWinningLine_ inputPlayer x else True) False (getAllLines inputBoard)
 
 -- Q#09
 
-getGameState = undefined
+{-
+The getGameState function receives a Tic Tac Toe board as input. The function evaluates the board, and then returns a value
+having type GameState indicating the current state of the Tic Tac Toe game.
+-}
+getGameState :: Board -> GameState
+getGameState inputBoard
+    | hasWon X inputBoard = XWon
+    | hasWon O inputBoard = OWon
+    | isTied inputBoard = Tie
+    | otherwise = InProgress
 
-playMove = undefined
+{-
+The playMove function updates the square indicated by the input Move value in the Tic Tac Toe board that the input Board
+value provides with the Player value that the function also receives as input.
+
+The function returns a tuple containing the current state of the Tic Tac Toe game in the first element of the tuple, and the
+updated Tic Tac Toe board in the second element of the tuple.
+
+IMPORTANT: The playMove function does NOT ensure that the square the function updates contains the value Void
+-}
+playMove :: Player -> Board -> Move -> (GameState, Board)
+playMove inputPlayer inputBoard inputMove = (getGameState updatedBoard, updatedBoard)
+    where
+        updatedBoard = putSquare inputPlayer inputBoard inputMove
 
 -- Q#10
 
