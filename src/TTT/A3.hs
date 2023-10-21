@@ -241,6 +241,9 @@ a value that does not match the Player value, then the function would incorrectl
 
 NOTE: The inputPlayer variable passed to the isWinningLine function is within the scope of the worker go function.
 Therefore, explicitly passing the inputPlayer variable to the worker go function is not necessary.
+
+NOTE: The isWinningLine function is rewritten using the built-in filter function in module TTT.A4 Q#06 The function
+is also rewritten using the built-in foldr function in TTT.A4 Q#07
 -}
 isWinningLine :: Player -> Line -> Bool
 isWinningLine inputPlayer inputLine = go False inputLine
