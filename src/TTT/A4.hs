@@ -65,7 +65,30 @@ isWinningLine_ inputPlayer_ inputLine_ = if not (null inputLine_) && null (filte
 
 -- Q#07
 
-isWinningLine__ = undefined
+{-
+Rewrite the isWinningLine function using the built-in foldr function. The foldr function processes the input list
+sequentially, one element at time, starting with the last (right-most) element in the list to the first (left-most).
+
+The isWinningList__ function uses pattern matching to ensure that passing an empty line to the function returns False
+
+In the lambda expression serving as the reducer function:
+
+- x represents the current value retrieved from the input list
+- y represents the current value of the accumulator variable
+
+The foldr function initializes the accumulator variable to True (Boolean type). In the lambda expression, if the
+current value retrieved from the input list does NOT match the Player value passed to the isWinningList__ function,
+then the lambda expression returns False Each time the lambda expression finishes executing, the accumulator variable
+is assigned the value that the lambda expression returns. If the accumulator variable is False, then the lambda
+expression always returns False
+
+NOTE: For more details on using the foldr function, see http://zvon.org/other/haskell/Outputprelude/foldr_f.html
+-}
+isWinningLine__ :: Player -> Line -> Bool
+--isWinningLine__ inputPlayer__ inputLine__ = foldr (\x y -> if x == inputPlayer__ then True else False) False inputLine__
+isWinningLine__ _ [] = False
+isWinningLine__ inputPlayer__ inputLine__ = foldr (\x y -> if (x /= inputPlayer__) || not y then False else True) True inputLine__
+
 
 -- Q#08
 
