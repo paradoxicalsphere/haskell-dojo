@@ -1,6 +1,5 @@
 module TTT.A4 where
 
-import Data.List (transpose)
 import TTT.A1
 import TTT.A2
 --import TTT.A3 (getAllLines, putSquare)
@@ -60,11 +59,13 @@ formatRows inputBoard = map (\x -> formatLine (showSquares x)) inputBoard
 
 -- Q#06
 
-isWinningLine_ = undefined
+-- Rewrite isWinningLine using the built-in filter function
+isWinningLine_ :: Player -> Line -> Bool
+isWinningLine_ inputPlayer_ inputLine_ = if not (null inputLine_) && null (filter (/=inputPlayer_) inputLine_) then True else False
 
 -- Q#07
 
-isWinningLine = undefined
+isWinningLine__ = undefined
 
 -- Q#08
 
