@@ -19,12 +19,14 @@ recursive function named go appends the string version of the next item in the i
 list variable of type String named acc When all items in the input list of type Integer are converted to
 string values, then the function returns the list of items stored in the acc variable and stops.
 -}
+{-
 showInts :: [Int] -> [String]
 showInts xs = go [] xs
     where
         go :: [String] -> [Int] -> [String]
         go acc (y:ys) = go (acc ++ [show y]) ys
         go acc [] = acc
+-}
 
 {-
 The _HEADER_ constant displays a string used to label the columns in the Tic Tac Toe board
@@ -60,16 +62,17 @@ showSquares inputSquareList = map showSquare inputSquareList
 {-
 The formatRows function converts a list of Row items into a list of String values. The function uses the same
 logic as the showInts and showSquares functions to complete the conversion recursively.
+
+NOTE: The formatRows function is rewritten using the built-in map function in module TTT.A4 Q#05
 -}
+{-
 formatRows :: [Row] -> [String]
 formatRows xs = go [] xs
     where
         go :: [String] -> [Row] -> [String]
         go acc (y:ys) = go (acc ++ [formatLine (showSquares y)]) ys
         go acc [] = acc
-
--- Rewrite the formatRows function using map
-
+-}
 
 -- Q#04
 

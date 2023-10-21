@@ -17,20 +17,22 @@ I moved some rewritten functions to TTT.A3 replacing the original implementation
 
 -- Q#01
 
+{-
 formatLineMap :: String -> String
 formatLineMap inputString = _SEP_ ++ inputString
+-}
 
 {-
 Redefine the _HEADER_ constant using the built-in map function. The redefined _HEADER_ constant:
 
-    1. Converts the Integers in the _RANGE_ list to a list of String values.
-    2. Using the formatLineMap and built-in map functions, prepends the _SEP_ String value to each item in the list that step 1 returns.
-    3. Appends a list item containing the _SEP_ String value to the list that step 2 returns.
-    4. Using the built-in concat function, converts the list of String values that step 3 returns into a single String value.
-
+    1. Converts the Integers in the _RANGE_ Integer list to a list of String values prepended with the _SEP_ separator String constant
+    2. Appends a list item containing the _SEP_ String value to the list that step 1 returns.
+    3. Using the built-in concat function, converts the list of String values that step 3 returns into a single String value.
 -}
 _HEADER_ :: String
-_HEADER_ = concat $ map formatLineMap (showInts _RANGE_) ++ [_SEP_]
+-- _HEADER_ = concat $ map formatLineMap (showInts _RANGE_) ++ [_SEP_]
+-- _HEADER_ = formatLine (showInts _RANGE_)
+_HEADER_ = concat $ map (\x -> _SEP_ ++ show x) _RANGE_ ++ [_SEP_]
 
 -- Q#02
 
@@ -52,7 +54,9 @@ _HEADER_ = concat $ map formatLineMap (showInts _RANGE_) ++ [_SEP_]
 
 --Q#05
 
-formatRows = undefined
+-- Rewrite the formatRows function using map
+formatRows :: Board -> [String]
+formatRows inputBoard = map (\x -> formatLine (showSquares x)) inputBoard
 
 -- Q#06
 
