@@ -117,7 +117,8 @@ Using a list of strings representing a row in the Tic Tac Toe board as input, se
 the contents of each square using the separator characters defined in the module TTT.A1
 -}
 formatLine :: [String] -> String
-formatLine rowStringList = _PRE_SEP_ ++ intercalate _SEP_ rowStringList ++ _POST_SEP_
+--formatLine rowStringList = _PRE_SEP_ ++ intercalate _SEP_ rowStringList ++ _POST_SEP_
+formatLine rowStringList = _SEP_ ++ intercalate _SEP_ rowStringList ++ _SEP_
 
 -- Q#08
 
