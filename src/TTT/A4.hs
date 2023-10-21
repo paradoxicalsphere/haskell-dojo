@@ -89,9 +89,9 @@ isWinningLine__ :: Player -> Line -> Bool
 isWinningLine__ _ [] = False
 isWinningLine__ inputPlayer__ inputLine__ = foldr (\x y -> if (x /= inputPlayer__) || not y then False else True) True inputLine__
 
-
 -- Q#08
 
+hasWon :: Player -> Board -> Bool
 hasWon = undefined
 
 -- Q#09

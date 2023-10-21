@@ -140,7 +140,13 @@ dropLastCol xs = go [] xs
 
 -- Rewrite the dropLastCol function using map and a lambda function
 dropLastCol :: Board -> Board
+{-
+IMPORTANT: The getDiag2 function calls the dropLastCol function recursively. Using head xs fails to drop a column
+when the input Board contains less than three columns.
+
 dropLastCol inputBoard = map (\(x:xs) -> [x, head xs]) inputBoard
+-}
+dropLastCol inputBoard = map (\x -> init x) inputBoard
 
 -- Q#06
 
