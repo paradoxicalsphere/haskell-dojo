@@ -1,8 +1,9 @@
 module TTT.A2 where
 
-import Data.List (intercalate)
 import TTT.A1
-import Data.Char
+
+import Data.Char (isDigit)
+import Data.List (intercalate)
 
 -- Completed October 3, 2023 to 
 

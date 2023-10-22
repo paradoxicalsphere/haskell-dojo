@@ -5,6 +5,8 @@ import TTT.A2
 --import TTT.A3 (getAllLines, putSquare)
 import TTT.A3
 
+import Data.List (intercalate)
+
 {-
 NOTES
 
@@ -33,7 +35,7 @@ Redefine the _HEADER_ constant using the built-in map function. The redefined _H
 _HEADER_ :: String
 -- _HEADER_ = concat $ map formatLineMap (showInts _RANGE_) ++ [_SEP_]
 -- _HEADER_ = formatLine (showInts _RANGE_)
-_HEADER_ = concat $ map (\x -> _SEP_ ++ show x) _RANGE_ ++ [_SEP_]
+_HEADER_ = concat $ [" "] ++ map (\x -> _SEP_ ++ show x) _RANGE_ ++ [_SEP_]
 
 -- Q#02
 
@@ -176,4 +178,30 @@ prependRowIndices inputStringList = zipWith (++) (map (:[]) $ take (length input
 
 -- Q#11
 
-formatBoard = undefined
+-- Declare and define a constant to display line breaks
+_NEW_LINE_ :: String
+_NEW_LINE_ = "\n"
+
+{-
+The formatBoard function receives a Board value as input, and then displays the Board using a user-friendly format.
+
+For more detail on using the intercalate function, see https://hackage.haskell.org/package/base-4.19.0.0/docs/Data-List.html#v:intercalate
+
+For more detail on using the putStrLn function, see http://zvon.org/other/haskell/Outputprelude/putStrLn_f.html
+
+To test the formatBoard function, use the Board value [[X,O,Void],[O,Void,X],[Void,O,X]] for example.
+
+NOTE: The function application operator ($) does not offer any functionality that that you cannot implement without using the $ operator.
+However, you can organize code differently using the $ operator in terms of ordering operations and grouping. Instead of the default
+left-to-right ordering, the $ operator orders from right to left. For more details, see
+https://mmhaskell.com/blog/2021/7/5/function-application-using-the-dollar-sign-
+
+NOTE: The function composition operator (.) chains functions, pipelining the result of the right function as input into the left function.
+For more details, see https://stackoverflow.com/questions/940382/what-is-the-difference-between-dot-and-dollar-sign
+-}
+formatBoard :: Board -> IO ()
+-- NOTE: The following four lines all produce the same working result.
+--formatBoard inputBoard = putStrLn (_HEADER_ ++ _NEW_LINE_ ++ intercalate _NEW_LINE_ (prependRowIndices (formatRows inputBoard)))
+--formatBoard inputBoard = putStrLn $ _HEADER_ ++ _NEW_LINE_ ++ intercalate _NEW_LINE_ (prependRowIndices $ formatRows inputBoard)
+--formatBoard inputBoard = putStrLn $ _HEADER_ ++ _NEW_LINE_ ++ intercalate _NEW_LINE_ ((prependRowIndices . formatRows) inputBoard)
+formatBoard inputBoard = putStrLn $ _HEADER_ ++ _NEW_LINE_ ++ intercalate _NEW_LINE_ (prependRowIndices . formatRows $ inputBoard)
