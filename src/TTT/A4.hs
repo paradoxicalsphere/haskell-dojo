@@ -199,9 +199,14 @@ https://mmhaskell.com/blog/2021/7/5/function-application-using-the-dollar-sign-
 NOTE: The function composition operator (.) chains functions, pipelining the result of the right function as input into the left function.
 For more details, see https://stackoverflow.com/questions/940382/what-is-the-difference-between-dot-and-dollar-sign
 -}
+{-
 formatBoard :: Board -> IO ()
 -- NOTE: The following four lines all produce the same working result.
 --formatBoard inputBoard = putStrLn (_HEADER_ ++ _NEW_LINE_ ++ intercalate _NEW_LINE_ (prependRowIndices (formatRows inputBoard)))
 --formatBoard inputBoard = putStrLn $ _HEADER_ ++ _NEW_LINE_ ++ intercalate _NEW_LINE_ (prependRowIndices $ formatRows inputBoard)
 --formatBoard inputBoard = putStrLn $ _HEADER_ ++ _NEW_LINE_ ++ intercalate _NEW_LINE_ ((prependRowIndices . formatRows) inputBoard)
 formatBoard inputBoard = putStrLn $ _HEADER_ ++ _NEW_LINE_ ++ intercalate _NEW_LINE_ (prependRowIndices . formatRows $ inputBoard)
+-}
+
+formatBoard :: Board -> String
+formatBoard inputBoard = _HEADER_ ++ _NEW_LINE_ ++ intercalate _NEW_LINE_ (prependRowIndices . formatRows $ inputBoard)
