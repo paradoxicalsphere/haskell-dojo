@@ -145,7 +145,34 @@ playMove inputPlayer inputBoard inputMove = (getGameState updatedBoard, updatedB
 
 -- Q#10
 
-prependRowIndices = undefined
+{-
+Rewrite prependRowIndices using the built-in zipWith function.
+
+For more details on the zipWith function, see http://zvon.org/other/haskell/Outputprelude/zipWith_f.html
+
+The following version works using a finite list of String values prepended to the respective item in the input String list.
+-}
+{-
+_LIMITED_STRING_LIST_ :: [String]
+_LIMITED_STRING_LIST_ = ["A", "B", "C"]
+
+prependRowIndices :: [String] -> [String]
+prependRowIndices inputStringList = zipWith (++) _LIMITED_STRING_LIST_ inputStringList
+-}
+
+{-
+The following version uses the _UNLIMITED_CHAR_LIST_ constant defined in the module TTT.A2
+
+NOTE: The original version of the prependRowIndices function defined in module TTT.A3 Q#08 also uses the
+_UNLIMITED_CHAR_LIST_ constant.
+
+The number of items in the inputStringList variable is used to select the number of characters retrieved from the
+_UNLIMITED_CHAR_LIST_ constant, which is defined as having an indeterminate range. The map function converts a
+String value into a list of String values, each having length 1 For more details on the specific map function, see
+https://copyprogramming.com/howto/string-to-list-of-characters
+-}
+prependRowIndices :: [String] -> [String]
+prependRowIndices inputStringList = zipWith (++) (map (:[]) $ take (length inputStringList) _UNLIMITED_CHAR_LIST_) inputStringList
 
 -- Q#11
 

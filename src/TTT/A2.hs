@@ -97,7 +97,7 @@ _TIED_BOARD_ = [
 
 -- Define an unlimited list of characters starting with 'A'
 _UNLIMITED_CHAR_LIST_ :: [Char]
-_UNLIMITED_CHAR_LIST_ = ['A', 'B'.. ]
+_UNLIMITED_CHAR_LIST_ = ['A', 'B' .. ]
 
 {-
 The zip function creates a list of tuples, where each tuple contains the elements appearing
