@@ -18,16 +18,9 @@ printBoard inputBoard = putStrLn $ formatBoard inputBoard
 -- Q#02
 
 {-
-To identify the encoding for a file, using a Terminal window type file <FileName>
+To identify the encoding for a file, using a Terminal window type:
 
-IMPORTANT: The original ttt-logo.txt file contains an encoding issue that raises the following
-error when attempting to load the file in Haskell:
-
-*** Exception: ./assets/ttt-logo.txt: hGetContents: invalid argument (invalid byte sequence)
-
-To fix the issue, using a Terminal window type iconv -f UTF-8 -t UTF-8 ./ttt-logo.txt.original -o ttt-logo.txt
-
-NOTE: For more details on using iconv, see https://www.tecmint.com/convert-files-to-utf-8-encoding-in-linux/
+file <FileName>
 -}
 
 -- The ttt-logo.txt file uses UTF-8 encoding
@@ -39,8 +32,8 @@ _LOGO_PATH_ASCII_ :: FilePath
 _LOGO_PATH_ASCII_ = "./assets/ttt-logo.txt.ascii"
 
 -- The utf8-demo.txt file is available for download from https://antofthy.gitlab.io/info/data/utf8-demo.txt
-_LOGO_PATH_DEMO_ :: FilePath
-_LOGO_PATH_DEMO_ = "./assets/utf8-demo.txt"
+--_LOGO_PATH_DEMO_ :: FilePath
+--_LOGO_PATH_DEMO_ = "./assets/utf8-demo.txt"
 
 {-
 For more details on the following implementation of printLogo, see:
@@ -49,10 +42,16 @@ https://stackoverflow.com/questions/33444796/read-file-with-utf-8-in-haskell-as-
 -}
 printLogo :: IO ()
 printLogo = do
+    -- Create a handle to the text file containing the logo art
     inputHandle <- openFile _LOGO_PATH_ ReadMode
+    -- Indicate the encoding of the text file containing the logo art
     hSetEncoding inputHandle utf8
-    theText <- hGetContents inputHandle
-    putStrLn theText
+    -- Retrieve the contents of the text file containing the logo art
+    inputLogo <- hGetContents inputHandle
+    -- Set the encoding to use for displaying the logo in the Terminal window
+    hSetEncoding stdout utf8
+    -- Display the logo in the Terminal window
+    putStrLn inputLogo
 
 {-
 The following implementation of printLogoASCII does NOT support input files using UTF-8 encoding.
