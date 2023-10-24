@@ -9,6 +9,8 @@ import TTT.A4
 
 -- The System.IO module is required for the printLogo function using openFile in Q#02 below
 import System.IO
+import Control.Arrow (Arrow(first))
+import qualified Main as variable
 
 -- Q#01
 
@@ -72,10 +74,29 @@ printLogoASCII = do
 -}
 
 -- Q#03
+
 _RANDOM_BOOL_ :: IO Bool
 _RANDOM_BOOL_ = uniformM globalStdGen
 
-firstPlayer = undefined
+{-
+firstPlayer :: IO Bool
+firstPlayer = do
+     _RANDOM_BOOL_
+-}
+
+{-
+The firstPlayer monad function:
+
+1. Assigns a random Boolean value to the randomBool variable.
+2. Passes the random Boolean value as an input parameter to the getFirstPlayer function.
+3. Returns the output value of the getFirstPlayer function to the IO monad context for display.
+
+NOTE: The getFirstPlayer function receives a value of type Bool and returns a value of type Player
+-}
+firstPlayer :: IO Player
+firstPlayer = do
+    randomBool <- _RANDOM_BOOL_
+    return (getFirstPlayer randomBool)
 
 -- Q#04
 
