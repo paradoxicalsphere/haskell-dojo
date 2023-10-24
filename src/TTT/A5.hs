@@ -9,8 +9,6 @@ import TTT.A4
 
 -- The System.IO module is required for the printLogo function using openFile in Q#02 below
 import System.IO
-import Control.Arrow (Arrow(first))
-import qualified Main as variable
 
 -- Q#01
 
