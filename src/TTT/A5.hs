@@ -90,6 +90,8 @@ The firstPlayer monad function:
 3. Returns the output value of the getFirstPlayer function to the IO monad context for display.
 
 NOTE: The getFirstPlayer function receives a value of type Bool and returns a value of type Player
+
+NOTE: For more details on using the IO monad, see https://www.haskell.org/tutorial/io.html
 -}
 firstPlayer :: IO Player
 firstPlayer = do
@@ -98,7 +100,36 @@ firstPlayer = do
 
 -- Q#04
 
-getMove = undefined
+{-
+The getMove function:
+
+1. Receives a Board value as input
+2. Prompts the user for a String value representing a square in the Tic Tac Toe board using the format
+   <RowLetter><ColumnNumber> where <RowLetter> is a letter from A to C and <ColumnNumber> is an integer
+   from 0 to 2
+3. Converts the string value received in step 2 to a value of type Move
+4. Tests if the square indicated using the Move value in step 3:
+      a) Is within the bounds of a Tic Tac Toe board
+      b) Represents an empty square in the Tic Tac Toe board received in step 1
+5. If the move is valid as determined in step 4, then the function displays the tuple representing the
+   square in the Tic Tac Toe board that the user typed in step 2
+
+   OR
+
+   If step 4 determines that the move is NOT valid, then the getMove function displays a message informing
+   the user before recursively calling the getMove function again.
+-}
+getMove :: Board -> IO Move
+getMove inputBoard = do
+    inputString <- getLine
+    let inputMove = stringToMove inputString
+    let moveIsValid = isValidMove inputBoard inputMove
+    if moveIsValid then
+        return inputMove
+    else
+        do
+            putStrLn "Invalid move! Try again..."
+            getMove inputBoard
 
 -- Q#05
 
