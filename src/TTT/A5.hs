@@ -10,6 +10,13 @@ import TTT.A4
 -- The System.IO module is required for the printLogo function using openFile in Q#02 below
 import System.IO
 
+{-
+NOTES
+
+- To run Tic Tac Toe, using a Terminal window navigate to the folder ~/Downloads/jambhala/haskell-dojo and then type cabal run
+NOTE: You do NOT need to type cabal run using the VSCodium Terminal tab.
+-}
+
 -- Q#01
 
 printBoard :: Board -> IO ()
@@ -133,12 +140,86 @@ getMove inputBoard = do
 
 -- Q#05
 
-play = undefined
+{-
+If the current iteration of the loop is the first time that the loop runs, then set a flag indicating that subsequent iterations
+of the loop are NOT the first iteration, and then display the logo
+
+IMPORTANT: None of the following expressions work in the play action because _DISPLAY_LOGO_ is a constant having a value that
+cannot change. Instead, to call printLogo only once at the start of a game, call printLogo in the runTTT action defined in Q#06
+-}
+   {-
+    when _DISPLAY_LOGO_ $ do
+        let _DISPLAY_LOGO_ = False
+        printLogo
+    -}
+    {-
+    displayLogo <- newIORef _DISPLAY_LOGO_
+    when displayLogo $ do
+        modifyIORef displayLogo False
+    -}
+    {-
+    if havePrintedLogo then
+        return ()
+    else
+        do
+            let havePrintedLogo = True
+            printLogo
+    -}
+
+{-
+The play action is the game loop that executes the game logic.
+-}
+play :: Board -> Player -> IO ()
+play inputBoard inputPlayer = do
+    -- Display the current Tic Tac Toe board
+    printBoard inputBoard
+    -- Prompt the appropriate player to make a move
+    putStr (promptPlayer inputPlayer)
+    inputString <- getLine
+    -- Convert the String value that getLine outputs to a value of type Move
+    let inputMove = stringToMove inputString
+    -- Test that the square where the player wants to make a move exists on a Tic Tac Toe board and is empty in the current Tic Tac Toe board
+    let moveIsValid = isValidMove inputBoard inputMove
+    -- If the move that the player wants to make is valid
+    if moveIsValid then
+        do
+            -- Make the move that the player indicated
+            let updatedGameStateAndBoard = playMove inputPlayer inputBoard inputMove
+            -- Assign the first and second items in the tuple that the playMove returns to respective variables
+            let updatedGameState = fst updatedGameStateAndBoard
+            let updatedBoard = snd updatedGameStateAndBoard
+            -- Determine the next player to make a move
+            let updatedPlayer = switchPlayer inputPlayer
+            case updatedGameState of
+                -- If player X won
+                XWon -> do
+                    printBoard updatedBoard
+                    putStrLn (showGameState updatedGameState)
+                -- If player O won
+                OWon -> do
+                    printBoard updatedBoard
+                    putStrLn (showGameState updatedGameState)
+                -- If the game has ended in a tie
+                Tie -> do
+                    printBoard updatedBoard
+                    putStrLn (showGameState updatedGameState)
+                -- If the game is still in progress, then recursively call the play action again using the updated Board and Player values
+                InProgress -> play updatedBoard updatedPlayer
+    -- If the move that the player wants to make is NOT valid
+    else
+        do
+            -- Display a message informing the player
+            putStrLn "Invalid move! Try again..."
+            -- Recursively call the play action again without changing the Board and Player input values
+            play inputBoard inputPlayer
 
 -- Q#06
 
 runTTT :: IO ()
-runTTT = putStrLn "Not implemented... yet!"
+runTTT = do
+    printLogo
+    startingPlayer <- firstPlayer
+    play _EMPTY_BOARD_ startingPlayer
 
 -- Q#07
 

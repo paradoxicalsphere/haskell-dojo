@@ -7,9 +7,11 @@ import Data.Void (Void)
 
 -- NOTES
 
--- To start an instance of the REPL, type cabal repl in the VSCodium Terminal area.
+-- To use the Jambhala Haskell IDE, using a Terminal window navigate to the folder ~/Downloads/jambhala and then type jcode haskell-dojo/
+-- To start an instance of the Read-Evaluate-Print Loop (REPL), type cabal repl in the VSCodium Terminal area.
 -- To load the current module, type :l TTT.A1 in the REPL
 -- To reload a module in the REPL, type :r or :reload
+-- To quit the REPL, type :q
 
 -- Q#01
 
@@ -25,7 +27,7 @@ _SIZE_ = 3
 -- The following signature declares the _DISPLAY_LOGO_ variable as a Boolean type
 _DISPLAY_LOGO_ :: Bool
 
--- Intialize the value of _DISPLAY_LOGO_ to True
+-- Initialize the value of _DISPLAY_LOGO_ to True
 _DISPLAY_LOGO_ = True
 
 -- Q#03
