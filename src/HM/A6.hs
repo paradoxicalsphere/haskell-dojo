@@ -112,5 +112,23 @@ updateChances inputMove inputSecret inputChances = if numMatchingChars > 0 then 
 
 -- Q#07
 
-setSecret = undefined
-
+{-
+The setSecret function requests that the user type a word. The function does NOT display characters that the user types
+on the screen. When the user presses ENTER, the function displays the input word that the user typed.
+-}
+setSecret :: IO ()
+setSecret = do
+    -- Display text to prompt the user for input
+    putStr "Type a secret word to guess:\t"
+    -- Hide user key presses
+    showInput False
+    -- Receive user input, assigning the value to the variable inputString
+    inputString <- getLine
+    -- Display user key presses
+    showInput True
+    -- Insert a carriage return
+    _SPACE_
+    -- Display the user input
+    putStr inputString
+    -- Insert a carriage return
+    _SPACE_
