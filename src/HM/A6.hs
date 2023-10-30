@@ -100,7 +100,15 @@ ifCharsEqual firstInputChar secondInputChar = if firstInputChar == secondInputCh
 
 -- Q#06
 
-updateChances = undefined
+{-
+The updateChanges function receives a character, a string and an integer as input. If the character occurs in the string,
+then the function returns the integer value. If the character does NOT occur in the string, then the function returns
+the integer decremented by 1
+-}
+updateChances :: Move -> Secret -> Chances -> Chances
+updateChances inputMove inputSecret inputChances = if numMatchingChars > 0 then inputChances else inputChances - 1
+    where
+        numMatchingChars = length $ filter (== inputMove) inputSecret
 
 -- Q#07
 
